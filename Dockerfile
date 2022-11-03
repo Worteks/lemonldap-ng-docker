@@ -24,6 +24,9 @@ RUN apt-get -y update && \
     apt-get -y install libdbd-mysql-perl libdbd-pg-perl && \
     echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 
+RUN echo "# Install lib Authen:Radius" && \
+    apt-get -y install libauthen-radius-perl
+
 COPY docker-entrypoint.sh /
 
 RUN echo '# Copy orignal configuration' && \
