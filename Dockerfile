@@ -1,7 +1,7 @@
 FROM debian:stable
 MAINTAINER Clément OUDOT
 LABEL name="lemonldap-ng-nginx" \
-      version="v2.0"
+      version="v2.0.radius"
 
 ENV SSODOMAIN=example.com \
     LOGLEVEL=info \
@@ -26,6 +26,10 @@ RUN apt-get -y update && \
 
 RUN echo "# Install lib Authen:Radius" && \
     apt-get -y install libauthen-radius-perl
+
+COPY freeradius/dictionaries/* /etc/raddb/
+
+COPY patch/lemonldap-ng/lemonldap-ng-portal/lib/Lemonldap/NG/Portal/Auth/Radius.pm /usr/share/perl5/Lemonldap/NG/Portal/Auth/Radius.pm
 
 COPY docker-entrypoint.sh /
 
