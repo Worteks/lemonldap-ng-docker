@@ -30,6 +30,7 @@ RUN echo "# Install lib Authen:Radius" && \
 COPY freeradius/dictionaries/* /etc/raddb/
 
 COPY patch/lemonldap-ng/lemonldap-ng-portal/lib/Lemonldap/NG/Portal/Auth/Radius.pm /usr/share/perl5/Lemonldap/NG/Portal/Auth/Radius.pm
+COPY patch/radiusexportedvars.ini /etc/lemonldap-ng/radiusexportedvars.ini
 
 COPY docker-entrypoint.sh /
 
@@ -37,7 +38,8 @@ RUN echo '# Copy orignal configuration' && \
     cp -a /etc/lemonldap-ng /etc/lemonldap-ng-orig && \
     cp -a /var/lib/lemonldap-ng/conf /var/lib/lemonldap-ng/conf-orig && \
     cp -a /var/lib/lemonldap-ng/sessions /var/lib/lemonldap-ng/sessions-orig && \
-    cp -a /var/lib/lemonldap-ng/psessions /var/lib/lemonldap-ng/psessions-orig
+    cp -a /var/lib/lemonldap-ng/psessions /var/lib/lemonldap-ng/psessions-orig && \
+    sed '/^\[portal\]*/a ;#include /etc/lemonldap-ng/radiusexportedvars.ini\n;#endinclude /etc/lemonldap-ng/radiusexportedvars.ini' /etc/lemonldap-ng-orig/lemonldap-ng.ini > /etc/lemonldap-ng/lemonldap-ng.ini
 
 RUN echo "# Install nginx configuration files" && \
     cd /etc/nginx/sites-enabled/ && \

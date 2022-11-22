@@ -2,6 +2,12 @@
 
 ![LL::NG+Docker](http://lemonldap-ng.org/_media/documentation/lemonldap-ng-docker.png)
 
+## Patching
+
+If you read this paragraph this mean that you **already** applied radius attribute  patch within current directory.
+
+Please read specific RADIUS configuration within RADIUS_ATTRIBUTES.md
+
 ## Build the image
 
 Use the docker build command:

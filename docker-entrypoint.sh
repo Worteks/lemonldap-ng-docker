@@ -11,6 +11,17 @@ do
     fi
 done
 
+if [ -z ${RADIUSINIFILE} ]; then
+    RADIUSINIFILE=/etc/lemonldap-ng/radiusexportedvars.ini
+fi
+if [ -f ${RADIUSINIFILE} ]; then
+    # unpatch  remove lines betwen #include and  #endinclude
+    sed -i '/;#include \/etc\/lemonldap-ng\/\(.*\)$/,/;#endinclude \/etc\/lemonldap-ng\/\(.*\)$/{//!d}' /etc/lemonldap-ng/lemonldap-ng.ini
+    # patch it
+    sed -i '/;#include \/etc\/lemonldap-ng\/\(.*\)$/r '"${RADIUSINIFILE}" /etc/lemonldap-ng/lemonldap-ng.ini
+fi
+
+
 if [ ! -z ${PORTAL_HOSTNAME+x} ]; then
     sed -i -e "s/auth.example.com/${PORTAL_HOSTNAME}/g" /etc/lemonldap-ng/* /var/lib/lemonldap-ng/conf/lmConf-1.json
 fi
