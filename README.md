@@ -231,4 +231,5 @@ mkdir -p ./llng/menutab
 
 ## Docker hub
 
-See also https://hub.docker.com/r/lemonldapng/lemonldap-ng/
+Community images can be found here at https://hub.docker.com/r/lemonldapng/lemonldap-ng/
+Image builds older than v2.20.2 https://hub.docker.com/r/coudot/lemonldap-ng/
